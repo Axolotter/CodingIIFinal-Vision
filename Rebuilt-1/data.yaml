@@ -1,0 +1,12 @@
+names:
+- fuel
+nc: 1
+roboflow:
+  license: CC BY 4.0
+  project: rebuilt
+  url: https://universe.roboflow.com/10014rebellion/rebuilt/dataset/1
+  version: 1
+  workspace: 10014rebellion
+test: ../test/images
+train: Rebuilt-1/train/images
+val: Rebuilt-1/valid/images
