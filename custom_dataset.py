@@ -25,8 +25,28 @@ from timeit import default_timer as timer
 data_path = Path("Rebuilt-1/")
 image_path = data_path
 
-train_dir = image_path / "train" 
+train_dir = image_path / "train" / "fuel"
 test_dir = image_path / "test" 
+
+
+def split_quarters_pillow(image_path):
+    img = Image.open(image_path)
+    w, h = img.size
+    
+    # Define the midpoint
+    mid_x, mid_y = w // 2, h // 2
+
+    # Define crop boxes: (left, upper, right, lower)
+    quarters = [
+        img.crop((0, 0, mid_x, mid_y)),        # Top-left
+        img.crop((mid_x, 0, w, mid_y)),        # Top-right
+        img.crop((0, mid_y, mid_x, h)),        # Bottom-left
+        img.crop((mid_x, mid_y, w, h))         # Bottom-right
+    ]
+
+    for i, q in enumerate(quarters):
+        q.save(f"Rebuilt-1/train-quarters/quarter_{i+1}.png")
+
 
 
 # Set seed
@@ -35,14 +55,16 @@ random.seed(42) # <- try changing this and see what happens
 # 1. Get all image paths (* means "any combination")
 image_path_list = list(image_path.glob("*/*/*.jpg"))
 
-# 2. Get random image path
-random_image_path = random.choice(image_path_list)
+# # 2. Get random image path
+# random_image_path = random.choice(image_path_list)
 
-# 3. Get image class from path name (the image class is the name of the directory where the image is stored)
-image_class = random_image_path.parent.stem
+# # 3. Get image class from path name (the image class is the name of the directory where the image is stored)
+# image_class = random_image_path.parent.stem
 
-# 4. Open image
-img = Image.open(random_image_path)
+# # 4. Open image
+# img = Image.open(random_image_path)
+
+# split_quarters_pillow(random_image_path)
 
 # 5. Print metadata
 # print(f"Random image path: {random_image_path}")
@@ -52,14 +74,27 @@ img = Image.open(random_image_path)
 # img
 
 # Turning image into array
-img_as_array = np.asarray(img)
+# img_as_array = np.asarray(img)
+
+
+def split_all_images(image_paths):
+    print("!!!")
+    print(image_paths[0])
+    for image_path in image_paths:
+        # with Image.open(image) as f:
+        #     print(f)
+        split_quarters_pillow(image_path)
+        print("*")
+        
+
+split_all_images(list(train_dir.glob("*/*/*.jpg")))
 
 
 # Plotting
-plt.figure(figsize = (10,7))
-plt.imshow(img_as_array)
-plt.title(f"Image class: {image_class} | Image shape: {img_as_array.shape} -> [height, width, color_channels]")
-plt.axis(False)
+# plt.figure(figsize = (10,7))
+# plt.imshow(img_as_array)
+# plt.title(f"Image class: {image_class} | Image shape: {img_as_array.shape} -> [height, width, color_channels]")
+# plt.axis(False)
 
 # plt.savefig('output.png')
 
@@ -105,19 +140,19 @@ def plot_transformed_images(image_paths: list, transform, n = 3, seed = 42):
             fig.suptitle(f"Class: {image_path.parent.stem}", fontsize = 16)
             fig.savefig('output.png')
 
-plot_transformed_images(image_path_list,
-                        transform = data_transform,
-                        n = 3)
+# plot_transformed_images(image_path_list,
+#                         transform = data_transform,
+#                         n = 3)
 
 
-train_data = datasets.ImageFolder(root = train_dir, # target folder of images
-                                  transform = data_transform, # transforms to perform on data (images)
-                                  target_transform = None) # transforms to perform on labels (if necessary)
+# train_data = datasets.ImageFolder(root = train_dir, # target folder of images
+#                                   transform = data_transform, # transforms to perform on data (images)
+#                                   target_transform = None) # transforms to perform on labels (if necessary)
 
-test_data = datasets.ImageFolder(root = test_dir,
-                                 transform = data_transform)
+# test_data = datasets.ImageFolder(root = test_dir,
+#                                  transform = data_transform)
 
 # print(f"Train data:\n{train_data}\nTest data:\n{test_data}")
 
-class_names = train_data.classes
+# class_names = train_data.classes
 # print(class_names)
