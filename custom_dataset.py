@@ -50,31 +50,10 @@ def split_quarters_pillow(image_path, num):
 
 
 # Set seed
-random.seed(42) # <- try changing this and see what happens
+random.seed(42)
 
 # 1. Get all image paths (* means "any combination")
 image_path_list = list(image_path.glob("*/*/*.jpg"))
-
-# # 2. Get random image path
-# random_image_path = random.choice(image_path_list)
-
-# # 3. Get image class from path name (the image class is the name of the directory where the image is stored)
-# image_class = random_image_path.parent.stem
-
-# # 4. Open image
-# img = Image.open(random_image_path)
-
-# split_quarters_pillow(random_image_path)
-
-# 5. Print metadata
-# print(f"Random image path: {random_image_path}")
-# print(f"Image class: {image_class}")
-# print(f"Image height: {img.height}")
-# print(f"Image width: {img.width}")
-# img
-
-# Turning image into array
-# img_as_array = np.asarray(img)
 
 
 def split_all_images(image_paths):
@@ -82,22 +61,13 @@ def split_all_images(image_paths):
     print(image_paths[0])
     for x in range(len(image_paths)):
         image_path = image_paths[x]
-        # with Image.open(image) as f:
-        #     print(f)
         split_quarters_pillow(image_path, x)
         # print("*")
     print("*")
         
+# IMAGE SPLIT ALREADY DONE
+# split_all_images(list(test_dir.glob("*/*.jpg")))
 
-split_all_images(list(test_dir.glob("*.jpg")))
-
-# Plotting
-# plt.figure(figsize = (10,7))
-# plt.imshow(img_as_array)
-# plt.title(f"Image class: {image_class} | Image shape: {img_as_array.shape} -> [height, width, color_channels]")
-# plt.axis(False)
-
-# plt.savefig('output.png')
 
 
 data_transform = transforms.Compose([
