@@ -128,21 +128,12 @@ train_data = datasets.ImageFolder(root = qTrain_dir, # target folder of images
 test_data = datasets.ImageFolder(root = qTest_dir,
                                  transform = data_transform)
 
-# print(f"Train data:\n{train_data}\nTest data:\n{test_data}")
 
 class_names = train_data.classes
-# print(class_names)
 
 class_dict = train_data.class_to_idx
-# print(class_dict)
-# print(len(train_data), len(test_data))
 
 img, label = train_data[0][0], train_data[0][1]
-# print(f"Image tensor:\n{img}")
-# print(f"Image shape: {img.shape}")
-# print(f"Image datatype: {img.dtype}")
-# print(f"Image label: {label}")
-# print(f"Label datatype: {type(label)}")
 
 train_dataloader = DataLoader(dataset = train_data,
                               batch_size = 1, # how many samples per batch?
@@ -153,6 +144,3 @@ test_dataloader = DataLoader(dataset = test_data,
                              batch_size = 1,
                              num_workers = 1,
                              shuffle = False) # don't usually need to shuffle testing data
-
-# print(train_dataloader, test_dataloader)
-# print(train_data.classes, train_data.class_to_idx)
