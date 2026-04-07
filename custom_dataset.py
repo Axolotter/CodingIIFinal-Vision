@@ -29,6 +29,9 @@ train_dir = image_path / "train" / "fuel"
 test_dir = image_path / "test" 
 
 
+qTrain_dir = image_path / "train-quarters"
+qTest_dir = image_path / "test-quarters"
+
 def split_quarters_pillow(image_path, num):
     img = Image.open(image_path)
     w, h = img.size
@@ -54,6 +57,8 @@ random.seed(42)
 
 # 1. Get all image paths (* means "any combination")
 image_path_list = list(image_path.glob("*/*/*.jpg"))
+qTrain_path_list = list(qTrain_dir.glob("*.jpg"))
+qTest_path_list = list(qTest_dir.glob("*.jpg"))
 
 
 def split_all_images(image_paths):
@@ -116,14 +121,38 @@ def plot_transformed_images(image_paths: list, transform, n = 3, seed = 42):
 #                         n = 3)
 
 
-# train_data = datasets.ImageFolder(root = train_dir, # target folder of images
-#                                   transform = data_transform, # transforms to perform on data (images)
-#                                   target_transform = None) # transforms to perform on labels (if necessary)
+train_data = datasets.ImageFolder(root = qTrain_dir, # target folder of images
+                                  transform = data_transform, # transforms to perform on data (images)
+                                  target_transform = None) # transforms to perform on labels (if necessary)
 
-# test_data = datasets.ImageFolder(root = test_dir,
-#                                  transform = data_transform)
+test_data = datasets.ImageFolder(root = qTest_dir,
+                                 transform = data_transform)
 
 # print(f"Train data:\n{train_data}\nTest data:\n{test_data}")
 
-# class_names = train_data.classes
+class_names = train_data.classes
 # print(class_names)
+
+class_dict = train_data.class_to_idx
+# print(class_dict)
+# print(len(train_data), len(test_data))
+
+img, label = train_data[0][0], train_data[0][1]
+# print(f"Image tensor:\n{img}")
+# print(f"Image shape: {img.shape}")
+# print(f"Image datatype: {img.dtype}")
+# print(f"Image label: {label}")
+# print(f"Label datatype: {type(label)}")
+
+train_dataloader = DataLoader(dataset = train_data,
+                              batch_size = 1, # how many samples per batch?
+                              num_workers = 1, # how many subprocesses to use for data loading? (higher = more)
+                              shuffle = True) # shuffle the data?
+
+test_dataloader = DataLoader(dataset = test_data,
+                             batch_size = 1,
+                             num_workers = 1,
+                             shuffle = False) # don't usually need to shuffle testing data
+
+# print(train_dataloader, test_dataloader)
+# print(train_data.classes, train_data.class_to_idx)
