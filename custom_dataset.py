@@ -29,7 +29,7 @@ train_dir = image_path / "train" / "fuel"
 test_dir = image_path / "test" 
 
 
-def split_quarters_pillow(image_path):
+def split_quarters_pillow(image_path, num):
     img = Image.open(image_path)
     w, h = img.size
     
@@ -45,7 +45,7 @@ def split_quarters_pillow(image_path):
     ]
 
     for i, q in enumerate(quarters):
-        q.save(f"Rebuilt-1/train-quarters/quarter_{i+1}.png")
+        q.save(f"Rebuilt-1/test-quarters/{num}_quarter_{i+1}.png")
 
 
 
@@ -80,15 +80,16 @@ image_path_list = list(image_path.glob("*/*/*.jpg"))
 def split_all_images(image_paths):
     print("!!!")
     print(image_paths[0])
-    for image_path in image_paths:
+    for x in range(len(image_paths)):
+        image_path = image_paths[x]
         # with Image.open(image) as f:
         #     print(f)
-        split_quarters_pillow(image_path)
-        print("*")
+        split_quarters_pillow(image_path, x)
+        # print("*")
+    print("*")
         
 
-split_all_images(list(train_dir.glob("*/*/*.jpg")))
-
+split_all_images(list(test_dir.glob("*.jpg")))
 
 # Plotting
 # plt.figure(figsize = (10,7))
