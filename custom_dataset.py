@@ -121,6 +121,7 @@ def plot_transformed_images(image_paths: list, transform, n = 3, seed = 42):
 #                         n = 3)
 
 
+
 train_data = datasets.ImageFolder(root = qTrain_dir, # target folder of images
                                   transform = data_transform, # transforms to perform on data (images)
                                   target_transform = None) # transforms to perform on labels (if necessary)
@@ -144,3 +145,10 @@ test_dataloader = DataLoader(dataset = test_data,
                              batch_size = 1,
                              num_workers = 1,
                              shuffle = False) # don't usually need to shuffle testing data
+
+# print(type(train_dataloader.dataset.tensors[0]))
+
+for i, (data) in enumerate(train_dataloader):
+        #  for f in data:
+        print(data[0].size())
+        plt.imshow(data[0].permute(1, 3, 64, 64))
