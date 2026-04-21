@@ -148,7 +148,7 @@ test_dataloader = DataLoader(dataset = test_data,
 
 # print(type(train_dataloader.dataset.tensors[0]))
 
-for i, (data) in enumerate(train_dataloader):
-        #  for f in data:
-        print(data[0].size())
-        plt.imshow(data[0].permute(1, 3, 64, 64))
+# for i, (data) in enumerate(train_dataloader):
+#         #  for f in data:
+#         print(data[0].size())
+#         plt.imshow(data[0].permute(1, 3, 64, 64))

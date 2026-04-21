@@ -3,8 +3,9 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
+import torch.nn.functional as nnf
 
-from custom_dataset import train_dataloader, test_dataloader
+from custom_dataset import train_dataloader, test_dataloader, qTrain_dir, qTest_dir
 
 device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
 print(f"Using {device} device")
@@ -38,6 +39,9 @@ def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
     model.train()
     for batch, (X, y) in enumerate(dataloader):
+        print('****')
+        print(X)
+        print("*****")
         X, y = X.to(device), y.to(device)
 
         # Compute prediction error
@@ -90,9 +94,14 @@ def train_loop(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
     # Set the model to training mode - important for batch normalization and dropout layers
     # Unnecessary in this situation but added for best practices
+    # print(dataloader.dataset.imgs[0])
+    # print("!!!!")
     model.train()
+    
     for batch, (X, y) in enumerate(dataloader):
+        
         # Compute prediction and loss
+        
         pred = model(X)
         loss = loss_fn(pred, y)
 
@@ -104,7 +113,7 @@ def train_loop(dataloader, model, loss_fn, optimizer):
         if batch % 100 == 0:
             loss, current = loss.item(), (batch + 1) * len(X)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
-            print(current)
+            # print(current)
 
 
 def test_loop(dataloader, model, loss_fn):
@@ -118,12 +127,23 @@ def test_loop(dataloader, model, loss_fn):
     # Evaluating the model with torch.no_grad() ensures that no gradients are computed during test mode
     # also serves to reduce unnecessary gradient computations and memory usage for tensors with requires_grad=True
     with torch.no_grad():
+        count = 0
         for X, y in dataloader:
+            
+            # print('****')
+            # print(dataloader.dataset.imgs[count])
+            # print("*****")
+            count +=1
+            
             pred = model(X)
             test_loss += loss_fn(pred, y).item()
             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
-            
+            prob = nnf.softmax(pred, dim=1)
 
+            top_p, top_class = prob.topk(1, dim = 1)
+            print(top_p)
+
+    
     test_loss /= num_batches
     correct /= size
     print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
