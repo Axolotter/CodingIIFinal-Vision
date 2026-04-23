@@ -39,9 +39,9 @@ def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
     model.train()
     for batch, (X, y) in enumerate(dataloader):
-        print('****')
-        print(X)
-        print("*****")
+        # print('****')
+        # print(X)
+        # print("*****")
         X, y = X.to(device), y.to(device)
 
         # Compute prediction error
@@ -141,7 +141,7 @@ def test_loop(dataloader, model, loss_fn):
             prob = nnf.softmax(pred, dim=1)
 
             top_p, top_class = prob.topk(1, dim = 1)
-            print(top_p)
+            # print(top_p)
 
     
     test_loss /= num_batches
@@ -150,9 +150,13 @@ def test_loop(dataloader, model, loss_fn):
 
     loss_fn = nn.CrossEntropyLoss()
 
-epochs = 25
-for t in range(epochs):
-    print(f"Epoch {t+1}\n-------------------------------")
-    train_loop(train_dataloader, model, loss_fn, optimizer)
-    test_loop(test_dataloader, model, loss_fn)
-print("Done!")
+epochs = 30
+if __name__ == '__main__':
+    for t in range(epochs):
+        print(f"Epoch {t+1}\n-------------------------------")
+        train_loop(train_dataloader, model, loss_fn, optimizer)
+        test_loop(test_dataloader, model, loss_fn)
+    print("Done!")
+
+
+    torch.save(model.state_dict(), 'model_weights.pth')
