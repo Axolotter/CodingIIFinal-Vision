@@ -2,16 +2,16 @@
 
 
 ## 1. Basic Info
- - Reviewer:
- - Author of code:
- - Project name:
- - Date:
+ - Reviewer: Auden Tatler
+ - Author of code: Jax Grzywacz-Jones
+ - Project name: Fuel Vision
+ - Date: 04/28/2026
 
 ---
 
 ## 2. What the Code is Supposed to Do
 
-In my understanding, this program is trying to...
+In my understanding, this program is trying to predict outcomes for a robot and whether it evaluates to 'fuel' or 'no fuel'.
 
 
 ---
@@ -20,74 +20,74 @@ In my understanding, this program is trying to...
 
 Does the code work as expected?
 
-- [ ] Works as expected  
+- [X] Works as expected  
 - [ ] Partially works  
 - [ ] Does not work  
 
 **Notes:**
-- What works:
-- What doesn't work:
-- Any error messages:
+- What works: The majority of the project works
+- What doesn't work: Edgecases and speed
+- Any error messages: None
 
 ---
 
 ## 4. Code Clarity & Readability
 
 - [ ] Easy to read  
-- [ ] Somewhat confusing  
+- [X] Somewhat confusing  
 - [ ] Hard to follow  
 
 **Comments:**
-- Are variable names meaningful?
-- Are functions clearly named?
-- Is the code logically organized?
+- Are variable names meaningful? Very meaningful to Jax, no one else
+- Are functions clearly named? Yes
+- Is the code logically organized? Yes
 
 ---
 
 ## 5. Structure & Design
 
-- [ ] Well structured  
+- [X] Well structured  
 - [ ] Needs improvement  
 - [ ] Disorganized  
 
 **Comments:**
-- Are functions used well?
-- Is there repeated code that could be simplified?
-- Could anything be broken into smaller functions?
+- Are functions used well? Yes
+- Is there repeated code that could be simplified? Not really
+- Could anything be broken into smaller functions? Maybe but it looks pretty good
 
 ---
 
 ## 6. Python Best Practices
 
-- [ ] Good practices used  
+- [X] Good practices used  
 - [ ] Some issues  
 - [ ] Major issues  
 
 **Check for:**
-- Proper indentation
-- Clean and readable code
-- Appropriate use of loops and conditionals
-- Avoidance of unnecessary global variables
+- Proper indentation - Good
+- Clean and readable code - Very readable
+- Appropriate use of loops and conditionals - Yes
+- Avoidance of unnecessary global variables - Yes!!
 
 ---
 
 ## 7. Bugs or Issues Found
 
-Be specific and helpful.
+Takes a very long time to run. Not necessarily a bug but could be a good fix to work on after the project's done.
 
 ---
 
 ## 8. Suggested Improvements
 
-Provide actionable suggestions:
+Speed of processing
 
 
 ---
 
 ## 9. Positive Feedback
 
-List at least two things done well:
-
+Very coherent and easy to follow even with the amount of files
+Very cool project concept
 
 ---
 
@@ -95,9 +95,11 @@ List at least two things done well:
 
 Overall evaluation:
 
-- [ ] Excellent  
+- [X] Excellent  
 - [ ] Good  
 - [ ] Needs improvement  
 - [ ] Needs significant revision  
 
 **Summary:**
+
+Very very good project. Just focus on improving the processing speed and it will be perfect.
