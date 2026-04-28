@@ -30,6 +30,7 @@ test_dir = image_path / "test"
 
 qTrain_dir = image_path / "train-quarters"
 qTest_dir = image_path / "test-quarters"
+qValid_dir = image_path / "valid-quarters"
 
 # model.eval()
 
@@ -46,18 +47,23 @@ def predictImg(img):
     # Get the predicted class index
     _, predicted_idx = torch.max(output, 1)
     if(predicted_idx == 0):
-        print('Predicted: fuel')
-        return 0
+        # print('Predicted: fuel')
+        return 0, 'Predicted: fuel'
     if(predicted_idx == 1):
-        print('Predicted: no fuel')
-        return 1
+        # print('Predicted: no fuel')
+        return 1, 'Predicted: no fuel'
     # print(f"Predicted class: {predicted_idx.item()}")
     
     # print(f"Probabilities: {probabilities}")
 
-for i in list(qTest_dir.glob("*/*.png")):
+for i in list(qValid_dir.glob("*.png")):
     # print(i)
     img = Image.open(i)
+    imgS = str(i)
     out = predictImg(img)
-    # if(out == 1):
-    #     print(i)
+    if(imgS.startswith("Rebuilt-1/valid-quarters/F")):
+        if out==(1, 'Predicted: no fuel'):
+            print(i, out)
+    elif(imgS.startswith("Rebuilt-1/valid-quarters/F") != True):
+        if out==(0, 'Predicted: fuel'):
+            print(i, out, "***")
