@@ -27,6 +27,7 @@ image_path = data_path
 
 train_dir = image_path / "train" / "fuel"
 test_dir = image_path / "test" 
+valid_dir = image_path / "valid"
 
 
 qTrain_dir = image_path / "train-quarters"
@@ -48,7 +49,7 @@ def split_quarters_pillow(image_path, num):
     ]
 
     for i, q in enumerate(quarters):
-        q.save(f"Rebuilt-1/test-quarters/{num}_quarter_{i+1}.png")
+        q.save(f"Rebuilt-1/valid-quarters/{num}_quarter_{i+1}.png")
 
 
 
@@ -70,10 +71,10 @@ def split_all_images(image_paths):
         # print("*")
     print("*")
         
-# IMAGE SPLIT ALREADY DONE
+# IMAGE SPLIT ALREADY DONE DO NOT RUN THIS LINE
 # split_all_images(list(test_dir.glob("*/*.jpg")))
 
-
+split_all_images(list(valid_dir.glob("*/*.jpg")))
 
 data_transform = transforms.Compose([
     transforms.Resize(size = (64, 64)), # Resize our images to a fixed size (such as 64 x 64 here)

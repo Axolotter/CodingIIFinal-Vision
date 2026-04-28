@@ -1,5 +1,5 @@
 from custom_dataset import data_transform, class_dict
-from neural_network import NeuralNetwork, device
+from neural_network import NeuralNetwork, device, model
 from PIL import Image
 import torchvision
 from torchvision import datasets, transforms
@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from torchvision.transforms import ToTensor
 from pathlib import Path
 
-model = NeuralNetwork().to(device)
+# model = NeuralNetwork().to(device)
 
 model.load_state_dict(torch.load('model_weights.pth', weights_only=True))
 # model.eval()
@@ -56,6 +56,8 @@ def predictImg(img):
     # print(f"Probabilities: {probabilities}")
 
 for i in list(qTest_dir.glob("*/*.png")):
-    print(i)
+    # print(i)
     img = Image.open(i)
-    predictImg(img)
+    out = predictImg(img)
+    # if(out == 1):
+    #     print(i)

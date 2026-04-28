@@ -150,7 +150,7 @@ def test_loop(dataloader, model, loss_fn):
 
     loss_fn = nn.CrossEntropyLoss()
 
-epochs = 30
+epochs = 50
 if __name__ == '__main__':
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
