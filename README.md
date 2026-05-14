@@ -16,3 +16,7 @@ Data used: https://universe.roboflow.com/10014rebellion/rebuilt
  Improvements: Can be trained with more images and more image variation, as it seems to mistake large portions of white in an image as fuel
 
  To see image results: run network_test.py and it will loop through valid-quarters and display any incorrect predictions
+
+ Video Overview: https://drive.google.com/file/d/1lfF4-8hd8W9_xc-OWTaE-mzGRkTFIrrG/view?usp=sharing
+
+Thanks for reading?
